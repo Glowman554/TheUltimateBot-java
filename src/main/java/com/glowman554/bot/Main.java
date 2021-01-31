@@ -35,7 +35,7 @@ public class Main extends ListenerAdapter {
             System.out.printf("[%s][%s] %s: %s\n", event.getGuild().getName(), event.getTextChannel().getName(), event.getMember().getEffectiveName(), event.getMessage().getContentDisplay());
         }
 
-        if(event.getAuthor().isBot()) {
+        if(event.getAuthor().getName().equals(event.getJDA().getSelfUser().getName())) {
             return;
         }
 
