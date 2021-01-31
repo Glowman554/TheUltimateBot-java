@@ -55,10 +55,25 @@ public class Main extends ListenerAdapter {
 
         if(event.getMessage().getContentRaw().equals("!ping")) {
             channel.sendMessage("Pong!").queue();
+            return;
         }
 
         if(event.getMessage().getContentRaw().equals("!hello")) {
             channel.sendMessage("Hello " + event.getMessage().getAuthor().getName()).queue();
+            return;
+        }
+
+        if(event.getMessage().getContentRaw().equals("!reload-bot")) {
+            bot.setup("alice", "resources");
+            channel.sendMessage("Reloaded chatboot successfully").queue();
+            return;
+        }
+
+        if(event.getMessage().getContentRaw().equals("!help")) {
+            channel.sendMessage("!ping -> Chek if bot is online\n" +
+                    "!hello -> Get a greeting\n" +
+                    "!reload-bot -> Restart chatbot\n" +
+                    "!help -> Get help").queue();
         }
     }
 }
