@@ -40,7 +40,11 @@ public class Main extends ListenerAdapter {
         }
 
         if(event.isFromType(ChannelType.PRIVATE) || event.getTextChannel().getName().contains("chatbot")) {
-            channel.sendMessage(bot.get_answer(event.getMessage().getContentDisplay())).queue();
+            String message = bot.get_answer(event.getMessage().getContentDisplay());
+            if(message.length() > 1999) {
+                message = message.substring(0, 1999);
+            }
+            channel.sendMessage(message).queue();
             return;
         }
 
