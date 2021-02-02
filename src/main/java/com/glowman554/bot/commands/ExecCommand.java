@@ -23,10 +23,8 @@ public class ExecCommand implements Command {
     }
 
     public void runCommand(String command, MessageChannel c) {
-        ProcessBuilder processBuilder = new ProcessBuilder().command(command);
-
         try {
-            Process process = processBuilder.start();
+            Process process = Runtime.getRuntime().exec(command);
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String output = null;
