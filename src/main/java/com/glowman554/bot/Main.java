@@ -5,6 +5,7 @@ import com.glowman554.bot.tools.ChatBot;
 import com.glowman554.bot.tools.CommandManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -27,10 +28,14 @@ public class Main extends ListenerAdapter {
         manager.registerCommand("#exec", "Execute a command", 1, new ExecCommand());
         manager.registerCommand("#b", "Talk to the ChatBot", 0, new ChatBotCommand());
         manager.registerCommand("#reload-bot", "Reload ChatBot", 1, new ReloadBotCommand());
+        manager.registerCommand("#status", "Set the status of the bot", 0, new StatusCommand());
+        manager.registerCommand("#message", "Send message to owner", 0, new MessageCommand());
 
         jda.addEventListener(manager);
         jda.addEventListener(new Logger());
         jda.addEventListener(new FireExtinguisher());
+
+        jda.getPresence().setActivity(Activity.playing("Use #help"));
 
         Utils.sendOwnerMessage("Initialized successfully", "config.json");
     }
