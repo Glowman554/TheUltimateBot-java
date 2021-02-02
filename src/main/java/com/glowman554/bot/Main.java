@@ -5,18 +5,21 @@ import com.glowman554.bot.tools.ChatBot;
 import com.glowman554.bot.tools.CommandManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
 
 public class Main extends ListenerAdapter {
 
     public static ChatBot bot = new ChatBot();
     public static CommandManager manager = new CommandManager();
+    public static JDA jda;
 
     public static void main(String[] args) throws Exception {
         String token = Utils.getToken("config.json");
 
         JDABuilder jdaBuilder =  JDABuilder.createDefault(token);
-        JDA jda = jdaBuilder.build();
+        jda = jdaBuilder.build();
 
 
         manager.registerCommand("#ping", "Chek if bot is online", 0, new PingCommand());
@@ -28,5 +31,7 @@ public class Main extends ListenerAdapter {
         jda.addEventListener(manager);
         jda.addEventListener(new Logger());
         jda.addEventListener(new FireExtinguisher());
+
+        Utils.sendOwnerMessage("Initialized successfully", "config.json");
     }
 }

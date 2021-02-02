@@ -20,6 +20,11 @@ public class CommandManager extends ListenerAdapter {
         }
 
         if(event.getMessage().getContentRaw().split(" ")[0].equals("#help")) {
+            try {
+                Utils.sendOwnerMessage("`[Command Executed] User: " + event.getAuthor().getAsTag() + ", Command: " + event.getMessage().getContentRaw() + "`", "config.json");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             switch(event.getMessage().getContentRaw().split(" ").length) {
                 case 1:
                     helps.forEach((key, value) -> {
@@ -42,9 +47,16 @@ public class CommandManager extends ListenerAdapter {
         }
 
         if(commands.get(event.getMessage().getContentRaw().split(" ")[0]) != null) {
+
+            try {
+                Utils.sendOwnerMessage("`[Command Executed] User: " + event.getAuthor().getAsTag() + ", Command: " + event.getMessage().getContentRaw() + "`", "config.json");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             if(securities.get(event.getMessage().getContentRaw().split(" ")[0]) == 1) {
                 try {
-                    if(Utils.isOwner(event.getAuthor().getAsTag())) {
+                    if(Utils.isOwner(event.getAuthor().getAsTag(), "config.json")) {
                         commands.get(event.getMessage().getContentRaw().split(" ")[0]).execute(event);
                     } else {
                         event.getChannel().sendMessage("You can't do that").queue();

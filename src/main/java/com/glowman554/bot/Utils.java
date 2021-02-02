@@ -2,6 +2,7 @@ package com.glowman554.bot;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import net.dv8tion.jda.api.entities.User;
 
 import java.io.*;
 import java.util.Scanner;
@@ -31,11 +32,22 @@ public class Utils {
         return e.getAsJsonObject().get("owner").getAsString();
     }
 
-    public static boolean isOwner(String tag) throws IOException {
-        if(getOwner("config.json").equals(tag)) {
+    public static String getOwnerId(String read_file) throws IOException {
+        JsonParser p = new JsonParser();
+        JsonElement e = p.parse(readFile(read_file));
+        return e.getAsJsonObject().get("owner_id").getAsString();
+    }
+
+    public static boolean isOwner(String tag, String read_file) throws IOException {
+        if(getOwner(read_file).equals(tag)) {
             return true;
         }
         return false;
+    }
+
+    public static void sendOwnerMessage(String what, String config_file) throws IOException {
+        User ra = Main.jda.retrieveUserById(getOwnerId(config_file)).complete();
+        ra.openPrivateChannel().complete().sendMessage(what).queue();
     }
 
     public static String getArguments(String[] array) {
