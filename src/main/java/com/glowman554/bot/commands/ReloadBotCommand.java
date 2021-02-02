@@ -1,18 +1,19 @@
 package com.glowman554.bot.commands;
 
 import com.glowman554.bot.Command;
+import com.glowman554.bot.Main;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class PingCommand implements Command {
+public class ReloadBotCommand implements Command {
     @Override
     public void execute(MessageReceivedEvent e) {
-
         if(e.getMessage().getContentRaw().split(" ").length != 1) {
             e.getChannel().sendMessage("Please use #help").queue();
             return;
         }
 
-        e.getChannel().sendMessage("Pong!").queue();
+        Main.bot.setup("alice", "resources");
+        e.getChannel().sendMessage("Reloaded ChatBot successfully").queue();
     }
 
     @Override
@@ -22,6 +23,6 @@ public class PingCommand implements Command {
 
     @Override
     public void on_help(MessageReceivedEvent event) {
-        event.getChannel().sendMessage("Use #ping").queue();
+        event.getChannel().sendMessage("Use #reload-bot").queue();
     }
 }

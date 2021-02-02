@@ -7,7 +7,7 @@ public class HelloCommand implements Command {
     @Override
     public void execute(MessageReceivedEvent e) {
         if(e.getMessage().getContentRaw().split(" ").length != 1) {
-            e.getChannel().sendMessage("Please use !help").queue();
+            e.getChannel().sendMessage("Please use #help").queue();
             return;
         }
 
@@ -17,5 +17,10 @@ public class HelloCommand implements Command {
     @Override
     public void on_register() {
 
+    }
+
+    @Override
+    public void on_help(MessageReceivedEvent event) {
+        event.getChannel().sendMessage("Use #hello").queue();
     }
 }
