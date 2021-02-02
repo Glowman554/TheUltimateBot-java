@@ -1,4 +1,4 @@
-package com.glowman554.bot;
+package com.glowman554.bot.tools;
 
 
 import org.alicebot.ab.Bot;

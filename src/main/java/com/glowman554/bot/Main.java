@@ -1,11 +1,11 @@
 package com.glowman554.bot;
 
 import com.glowman554.bot.commands.*;
+import com.glowman554.bot.tools.ChatBot;
+import com.glowman554.bot.tools.CommandManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-/*Read json file for owner to get rights*/
 
 public class Main extends ListenerAdapter {
 

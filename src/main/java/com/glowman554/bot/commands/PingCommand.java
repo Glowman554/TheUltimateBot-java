@@ -1,6 +1,6 @@
 package com.glowman554.bot.commands;
 
-import com.glowman554.bot.Command;
+import com.glowman554.bot.tools.Command;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PingCommand implements Command {

@@ -1,5 +1,6 @@
-package com.glowman554.bot;
+package com.glowman554.bot.tools;
 
+import com.glowman554.bot.Utils;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

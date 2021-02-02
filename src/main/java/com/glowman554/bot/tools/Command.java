@@ -1,4 +1,4 @@
-package com.glowman554.bot;
+package com.glowman554.bot.tools;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
