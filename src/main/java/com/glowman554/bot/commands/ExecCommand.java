@@ -2,9 +2,12 @@ package com.glowman554.bot.commands;
 
 import com.glowman554.bot.Command;
 import com.glowman554.bot.Utils;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ExecCommand implements Command {
     @Override
@@ -16,10 +19,28 @@ public class ExecCommand implements Command {
 
         String command = Utils.getArguments(e.getMessage().getContentRaw().split(" "));
         e.getChannel().sendMessage("Executing command: " + command).queue();
+        runCommand(command, e.getChannel());
+    }
+
+    public void runCommand(String command, MessageChannel c) {
+        ProcessBuilder processBuilder = new ProcessBuilder().command(command);
+
         try {
-            Process child = Runtime.getRuntime().exec(command);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Process process = processBuilder.start();
+            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String output = null;
+            while ((output = bufferedReader.readLine()) != null) {
+                c.sendMessage(output).queue();
+            }
+
+            process.waitFor();
+            bufferedReader.close();
+            c.sendMessage("Execution complete with exit code: " + String.valueOf(process.exitValue())).queue();
+            process.destroy();
+
+        } catch (IOException | InterruptedException e) {
+            c.sendMessage("Something is wrong: " + e.getMessage()).queue();
         }
     }
 
