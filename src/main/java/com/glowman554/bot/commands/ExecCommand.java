@@ -19,7 +19,12 @@ public class ExecCommand implements Command {
 
         String command = Utils.getArguments(e.getMessage().getContentRaw().split(" "));
         e.getChannel().sendMessage("Executing command: " + command).queue();
-        runCommand(command, e.getChannel());
+
+        new Thread(() -> {
+            runCommand(command, e.getChannel());
+        }).start();
+
+
     }
 
     public void runCommand(String command, MessageChannel c) {
