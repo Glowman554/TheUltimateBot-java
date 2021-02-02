@@ -27,9 +27,15 @@ public class CommandManager extends ListenerAdapter {
             }
             switch(event.getMessage().getContentRaw().split(" ").length) {
                 case 1:
+
+                    final String[] help_msg = {""};
+
                     helps.forEach((key, value) -> {
-                        event.getChannel().sendMessage(key + " -> " + value).queue();
+                        help_msg[0] += key + " -> " + value + "\n";
                     });
+
+                    event.getChannel().sendMessage(help_msg[0]).queue();
+
                     break;
 
                 case 2:
