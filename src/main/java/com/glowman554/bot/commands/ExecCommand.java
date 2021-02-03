@@ -1,7 +1,7 @@
 package com.glowman554.bot.commands;
 
 import com.glowman554.bot.tools.Command;
-import com.glowman554.bot.Utils;
+import com.glowman554.bot.utils.Utils;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

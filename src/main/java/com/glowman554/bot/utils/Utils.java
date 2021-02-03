@@ -1,5 +1,6 @@
-package com.glowman554.bot;
+package com.glowman554.bot.utils;
 
+import com.glowman554.bot.Main;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import net.dv8tion.jda.api.entities.User;

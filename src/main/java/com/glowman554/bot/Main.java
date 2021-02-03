@@ -3,12 +3,13 @@ package com.glowman554.bot;
 import com.glowman554.bot.commands.*;
 import com.glowman554.bot.tools.ChatBot;
 import com.glowman554.bot.tools.CommandManager;
+import com.glowman554.bot.utils.FireExtinguisher;
+import com.glowman554.bot.utils.Logger;
+import com.glowman554.bot.utils.Utils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.RestAction;
 
 public class Main extends ListenerAdapter {
 
@@ -30,6 +31,7 @@ public class Main extends ListenerAdapter {
         manager.registerCommand("#reload-bot", "Reload ChatBot", 1, new ReloadBotCommand());
         manager.registerCommand("#status", "Set the status of the bot", 0, new StatusCommand());
         manager.registerCommand("#message", "Send message to owner", 0, new MessageCommand());
+        manager.registerCommand("#wikipedia", "Search wikipedia", 0, new WikipediaCommand());
 
         jda.addEventListener(manager);
         jda.addEventListener(new Logger());
