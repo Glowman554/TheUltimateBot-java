@@ -26,9 +26,9 @@ public class Main extends ListenerAdapter {
 
         manager.registerCommand("#ping", "Chek if bot is online", 0, new PingCommand());
         manager.registerCommand("#hello", "Get a greeting", 0, new HelloCommand());
-        manager.registerCommand("#exec", "Execute a command", 1, new ExecCommand());
+        manager.registerCommand("#exec", "Execute a command", 0, new ExecCommand());
         manager.registerCommand("#b", "Talk to the ChatBot", 0, new ChatBotCommand());
-        manager.registerCommand("#reload-bot", "Reload ChatBot", 1, new ReloadBotCommand());
+        manager.registerCommand("#reload-bot", "Reload ChatBot", 0, new ReloadBotCommand());
         manager.registerCommand("#status", "Set the status of the bot", 0, new StatusCommand());
         manager.registerCommand("#message", "Send message to owner", 0, new MessageCommand());
         manager.registerCommand("#wikipedia", "Search wikipedia", 0, new WikipediaCommand());
