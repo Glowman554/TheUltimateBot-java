@@ -1,7 +1,7 @@
 FROM debian
 
 RUN apt update
-RUN apt install git openjdk-11-jdk maven gcc make automake -y
+RUN apt install git openjdk-11-jdk maven gcc make automake libcurl4-openssl-dev -y
 
 RUN git clone https://github.com/Glowman554/TheUltimateBot-java
 RUN git clone https://github.com/Glowman554/cpuminer.git
