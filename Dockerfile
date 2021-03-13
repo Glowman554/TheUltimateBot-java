@@ -19,7 +19,7 @@ WORKDIR /TheUltimateBot-java
 RUN mvn package
 RUN mv target/TheUltimateBot-1.0-SNAPSHOT.jar .
 
-COPY token.txt /TheUltimateBot-java/.
+COPY token.json /TheUltimateBot-java/.
 COPY users.json /TheUltimateBot-java/.
 COPY miner_config.json /TheUltimateBot-java/.
 

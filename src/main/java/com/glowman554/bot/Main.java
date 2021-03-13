@@ -6,6 +6,8 @@ import com.glowman554.bot.permission.PermissionManager;
 import com.glowman554.bot.plugin.PluginLoader;
 import com.glowman554.bot.utils.FileUtils;
 import com.glowman554.bot.utils.Logger;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -23,7 +25,10 @@ public class Main {
 
         pluginLoader = new PluginLoader();
 
-        JDABuilder jdaBuilder = JDABuilder.createDefault(FileUtils.readFile("token.txt"));
+        JsonParser jsonParser = new JsonParser();
+        JsonElement token_json = jsonParser.parse(FileUtils.readFile("token.json"));
+
+        JDABuilder jdaBuilder = JDABuilder.createDefault(token_json.getAsJsonObject().get("token").getAsString());
         jda = jdaBuilder.build();
 
         jda.addEventListener(new Logger());
