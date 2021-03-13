@@ -1,44 +1,52 @@
 package com.glowman554.bot;
 
-import com.glowman554.bot.commands.*;
-import com.glowman554.bot.tools.ChatBot;
-import com.glowman554.bot.tools.CommandManager;
-import com.glowman554.bot.utils.FireExtinguisher;
+import com.glowman554.bot.command.CommandManager;
+import com.glowman554.bot.command.impl.*;
+import com.glowman554.bot.permission.PermissionManager;
+import com.glowman554.bot.plugin.PluginLoader;
+import com.glowman554.bot.utils.FileUtils;
 import com.glowman554.bot.utils.Logger;
-import com.glowman554.bot.utils.Utils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class Main extends ListenerAdapter {
+public class Main {
 
-    public static ChatBot bot = new ChatBot();
-    public static CommandManager manager = new CommandManager();
     public static JDA jda;
 
-    public static void main(String[] args) throws Exception {
-        String token = Utils.getToken("config.json");
+    public static CommandManager commandManager = new CommandManager("#");
+    public static PermissionManager permissionManager = new PermissionManager("roles.json", "users.json");
+    private static final MessageReceiver messageReceiver = new MessageReceiver();
+    public static PluginLoader pluginLoader;
 
-        JDABuilder jdaBuilder =  JDABuilder.createDefault(token);
+    public static void main(String[] args) throws Exception {
+
+        pluginLoader = new PluginLoader();
+
+        JDABuilder jdaBuilder = JDABuilder.createDefault(FileUtils.readFile("token.txt"));
         jda = jdaBuilder.build();
 
-
-        manager.registerCommand("#ping", "Chek if bot is online", 0, new PingCommand());
-        manager.registerCommand("#hello", "Get a greeting", 0, new HelloCommand());
-        manager.registerCommand("#exec", "Execute a command", 0, new ExecCommand());
-        manager.registerCommand("#b", "Talk to the ChatBot", 0, new ChatBotCommand());
-        manager.registerCommand("#reload-bot", "Reload ChatBot", 0, new ReloadBotCommand());
-        manager.registerCommand("#status", "Set the status of the bot", 0, new StatusCommand());
-        manager.registerCommand("#message", "Send message to owner", 0, new MessageCommand());
-        manager.registerCommand("#wikipedia", "Search wikipedia", 0, new WikipediaCommand());
-
-        jda.addEventListener(manager);
         jda.addEventListener(new Logger());
-        jda.addEventListener(new FireExtinguisher());
+        jda.addEventListener(messageReceiver);
 
+        commandManager.registerCommand("exit", "Exit the bot!", new ExitCommand());
+        commandManager.registerCommand("miner", "Lets mine coins!", new MinerCommand());
+        commandManager.registerCommand("role", "Manage roles!", new RoleCommand());
+        commandManager.registerCommand("exec", "Execute shell commands!", new ExecCommand());
+        commandManager.registerCommand("status", "Set the status of the bot!", new StatusCommand());
+        commandManager.registerCommand("wikipedia", "Search wikipedia!", new WikipediaCommand());
+        commandManager.registerCommand("exec-js", "Execute JavaScript!", new ExecJSCommand());
+        commandManager.registerCommand("plugin", "Load a JavaScript plugin!", new PluginCommand());
+        commandManager.registerCommand("plugin-url", "Load a JavaScript plugin from an URL!", new PluginURLCommand());
+
+        pluginLoader.enableAll();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            pluginLoader.disableAll();
+        }));
+    }
+
+    public static void setDefaultRP() {
         jda.getPresence().setActivity(Activity.playing("Use #help"));
-
-        Utils.sendOwnerMessage("Initialized successfully", "config.json");
     }
 }

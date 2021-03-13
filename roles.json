@@ -1,0 +1,17 @@
+{
+  "owner": {
+    "miner": true,
+    "exit": true,
+    "exec": true,
+    "status": true,
+    "role": true,
+    "plugin": true
+  },
+  "mod": {
+    "exec": true,
+    "status": true
+  },
+  "executor": {
+    "exec": true
+  }
+}
