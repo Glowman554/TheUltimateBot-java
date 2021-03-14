@@ -9,7 +9,7 @@ RUN git clone https://github.com/Glowman554/cpuminer.git
 WORKDIR /cpuminer
 
 RUN bash autogen.sh
-RUN bash configure
+RUN bash configure CFLAGS="-O3"
 RUN make
 
 RUN mv minerd ../TheUltimateBot-java/.
