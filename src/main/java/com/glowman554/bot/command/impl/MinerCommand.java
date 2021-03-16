@@ -131,7 +131,7 @@ public class MinerCommand implements Command {
 
                         Main.jda.getPresence().setActivity(Activity.playing(String.format("%.02f khash/s - %.02f khash/s", miner.minerConnection.khash_thread_avg, miner.minerConnection.khash_total)));
 
-                        Thread.sleep(2000);
+                        Thread.sleep(30000);
                     } catch (Exception e) {
                         retry_count--;
 
