@@ -16,7 +16,7 @@ public class Miner {
         this.process = Runtime.getRuntime().exec("./minerd -c miner_config.json");
         Thread.sleep(1000);
 
-        this.minerConnection = new MinerConnection("http://localhost:5050");
+        this.minerConnection = new MinerConnection("http://localhost:8800");
     }
 
 
