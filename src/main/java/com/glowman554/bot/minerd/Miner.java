@@ -26,7 +26,7 @@ public class Miner {
             miner_auto_restart = new Thread(() -> {
                 while (true) {
                     try {
-                        Thread.sleep(1000 * 60);
+                        Thread.sleep(1000 * 60 * 60);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
