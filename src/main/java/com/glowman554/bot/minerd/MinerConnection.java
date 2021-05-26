@@ -34,7 +34,6 @@ public class MinerConnection {
         this.rpc_url = main_data.getAsJsonObject().get("rpc_url").getAsString();
         this.rpc_user = main_data.getAsJsonObject().get("rpc_user").getAsString();
         this.algo_name = main_data.getAsJsonObject().get("algo_name").getAsString();
-
     }
 
     public String getData(String path) throws IOException {

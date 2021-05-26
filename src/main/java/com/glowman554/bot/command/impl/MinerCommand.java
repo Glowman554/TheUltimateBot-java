@@ -26,7 +26,7 @@ public class MinerCommand implements Command {
         }
 
         switch (event.args[0]) {
-            case "connect":
+            /*case "connect":
                 if (event.args.length != 2) {
                     event.CommandFail();
                     return;
@@ -57,8 +57,8 @@ public class MinerCommand implements Command {
                 this.minerCallback.start();
 
                 break;
-
-            case "disconnect":
+            */
+            case "stop":
                 if (event.args.length != 1) {
                     event.CommandFail();
                     return;
@@ -74,6 +74,7 @@ public class MinerCommand implements Command {
 
                 if (!miner.remote) {
                     miner.process.destroy();
+                    miner.miner_auto_restart.stop();
                 }
 
                 miner = null;
@@ -119,6 +120,7 @@ public class MinerCommand implements Command {
     }
 
     public void initCallbackThread(CommandEvent event) {
+
         minerCallback = new Thread("Miner callback") {
 
             int retry_count = 10;
@@ -127,11 +129,17 @@ public class MinerCommand implements Command {
             public void run() {
                 while (true) {
                     try {
+                        Thread.sleep(30000);
+
+                        while (miner.lock) {
+                            Thread.sleep(1000);
+                            System.out.println("[miner] Waiting for unlock!");
+                        }
+
                         miner.minerConnection.update();
 
                         Main.jda.getPresence().setActivity(Activity.playing(String.format("%.02f khash/s - %.02f khash/s", miner.minerConnection.khash_thread_avg, miner.minerConnection.khash_total)));
-
-                        Thread.sleep(30000);
+                        retry_count = 10;
                     } catch (Exception e) {
                         retry_count--;
 
@@ -140,6 +148,7 @@ public class MinerCommand implements Command {
 
                             if (!miner.remote) {
                                 miner.process.destroy();
+                                miner.miner_auto_restart.stop();
                             }
 
                             miner = null;
@@ -167,8 +176,8 @@ public class MinerCommand implements Command {
         embedBuilder.setTitle("Miner help");
         embedBuilder.setThumbnail("https://th.bing.com/th/id/OIF.jUfuHljOgkQRr1ooYoq6RA");
 
-        embedBuilder.addField("connect", "Connect to a remote miner!", false);
-        embedBuilder.addField("disconnect", "Disconnect from remote miner or kill local miner!", false);
+        //embedBuilder.addField("connect", "Connect to a remote miner!", false);
+        embedBuilder.addField("stop", "Disconnect from remote miner or kill local miner!", false);
         embedBuilder.addField("start", "Start local miner!", false);
 
         event.event.getChannel().sendMessage(embedBuilder.build()).queue();
