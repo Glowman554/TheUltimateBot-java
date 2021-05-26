@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class Logger extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        super.onMessageReceived(event);
         if (event.isFromType(ChannelType.PRIVATE)) {
             System.out.printf("[PM] %s: %s\n", event.getAuthor().getAsTag(), event.getMessage().getContentDisplay());
         } else {

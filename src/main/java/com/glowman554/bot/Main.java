@@ -4,6 +4,7 @@ import com.glowman554.bot.command.CommandManager;
 import com.glowman554.bot.command.impl.*;
 import com.glowman554.bot.permission.PermissionManager;
 import com.glowman554.bot.plugin.PluginLoader;
+import com.glowman554.bot.utils.ChatBot;
 import com.glowman554.bot.utils.FileUtils;
 import com.glowman554.bot.utils.Logger;
 import com.google.gson.JsonElement;
@@ -32,6 +33,7 @@ public class Main {
         jda = jdaBuilder.build();
 
         jda.addEventListener(new Logger());
+        jda.addEventListener(new ChatBot());
         jda.addEventListener(messageReceiver);
 
         commandManager.registerCommand("exit", "Exit the bot!", new ExitCommand());

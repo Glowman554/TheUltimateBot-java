@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+users.json
+token.json

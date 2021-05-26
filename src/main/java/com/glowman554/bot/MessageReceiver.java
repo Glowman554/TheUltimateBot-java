@@ -9,6 +9,10 @@ public class MessageReceiver extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         super.onMessageReceived(event);
 
+        if(event.getAuthor().isBot()) {
+            return;
+        }
+
         CommandEvent commandEvent = new CommandEvent(event.getMessage().getContentRaw(), event.getMessage().getContentRaw().split(" ")[0], CommandEvent.getArguments(event.getMessage().getContentRaw().split(" ")), event);
 
         try {
