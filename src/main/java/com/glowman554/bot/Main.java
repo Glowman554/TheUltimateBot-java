@@ -6,6 +6,7 @@ import com.glowman554.bot.permission.PermissionManager;
 import com.glowman554.bot.plugin.PluginLoader;
 import com.glowman554.bot.utils.ChatBot;
 import com.glowman554.bot.utils.FileUtils;
+import com.glowman554.bot.utils.FireExtinguisher;
 import com.glowman554.bot.utils.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -33,6 +34,7 @@ public class Main {
         jda = jdaBuilder.build();
 
         jda.addEventListener(new Logger());
+        jda.addEventListener(new FireExtinguisher());
         jda.addEventListener(new ChatBot());
         jda.addEventListener(messageReceiver);
 
